@@ -14,27 +14,34 @@ export async function POST(request: Request) {
     const json = await request.json();
     const body = registerSchema.parse(json);
 
-    const user = await prisma.user.findUnique({
+    const exists = await prisma.user.findUnique({
       where: { email: body.email },
     });
 
-    if (user) {
+    if (exists) {
       return new NextResponse("User already exists", { status: 400 });
     }
 
     const hashedPassword = await bcrypt.hash(body.password, 10);
 
-    const newUser = await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         name: body.name,
         email: body.email,
         password: hashedPassword,
+        role: "USER",
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
       },
     });
 
-    const { password: _, ...result } = newUser;
-    return NextResponse.json(result);
+    return NextResponse.json(user);
   } catch (error) {
+    console.error("Registration error:", error);
     return new NextResponse(
       error instanceof Error ? error.message : "Internal Server Error",
       { status: 500 }

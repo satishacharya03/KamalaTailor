@@ -1,5 +1,4 @@
-"use client";
-
+import { Suspense } from "react";
 import { Card } from "@/components/ui/card";
 import {
   BarChart,
@@ -10,13 +9,28 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { useEffect, useState } from "react";
+import { prisma } from "@/lib/prisma";
 
-interface DashboardData {
-  totalOrders: number;
-  totalProducts: number;
-  totalCustomers: number;
-  recentOrders: any[];
+export const dynamic = "force-dynamic";
+
+async function getDashboardData() {
+  const [totalOrders, totalProducts, totalCustomers, recentOrders] = await Promise.all([
+    prisma.order.count(),
+    prisma.product.count(),
+    prisma.user.count(),
+    prisma.order.findMany({
+      take: 5,
+      orderBy: { createdAt: "desc" },
+      include: { user: true },
+    }),
+  ]);
+
+  return {
+    totalOrders,
+    totalProducts,
+    totalCustomers,
+    recentOrders,
+  };
 }
 
 const data = [
@@ -28,29 +42,8 @@ const data = [
   { name: "Jun", sales: 2390 },
 ];
 
-export const dynamic = "force-dynamic";
-
-export default function AdminDashboard() {
-  const [dashboardData, setDashboardData] = useState<DashboardData>({
-    totalOrders: 0,
-    totalProducts: 0,
-    totalCustomers: 0,
-    recentOrders: [],
-  });
-
-  useEffect(() => {
-    async function fetchDashboardData() {
-      try {
-        const response = await fetch('/api/admin/dashboard');
-        const data = await response.json();
-        setDashboardData(data);
-      } catch (error) {
-        console.error('Failed to fetch dashboard data:', error);
-      }
-    }
-
-    fetchDashboardData();
-  }, []);
+export default async function AdminDashboard() {
+  const dashboardData = await getDashboardData();
 
   return (
     <div className="space-y-8">
@@ -69,20 +62,22 @@ export default function AdminDashboard() {
         </Card>
       </div>
 
-      <Card className="p-6">
-        <h3 className="mb-4 text-lg font-semibold">Sales Overview</h3>
-        <div className="h-[300px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="sales" fill="hsl(var(--primary))" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </Card>
+      <Suspense fallback={<div>Loading chart...</div>}>
+        <Card className="p-6">
+          <h3 className="mb-4 text-lg font-semibold">Sales Overview</h3>
+          <div className="h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={data}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="sales" fill="hsl(var(--primary))" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </Card>
+      </Suspense>
 
       <Card className="p-6">
         <h3 className="mb-4 text-lg font-semibold">Recent Orders</h3>

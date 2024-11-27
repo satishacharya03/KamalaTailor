@@ -2,8 +2,6 @@ import { prisma } from "@/lib/prisma";
 import { DataTable } from "@/components/ui/data-table";
 import { CustomerColumns } from "./columns";
 
-export const dynamic = "force-dynamic";
-
 export default async function CustomersPage() {
   const customers = await prisma.user.findMany({
     where: {

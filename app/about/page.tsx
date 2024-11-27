@@ -25,19 +25,6 @@ export default function AboutPage() {
               products, outstanding customer service, and a commitment to
               sustainability.
             </p>
-            <div className="mt-16">
-        <h2 className="mb-8 text-3xl font-bold">Our Location</h2>
-        <div className="relative w-full h-96">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d670.0185631890513!2d82.29261506979812!3d28.13258948234085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2snp!4v1732541853325!5m2!1sen!2snp"
-            width="600"
-            height="450"
-            style={{ border: 0 }}
-            allowFullScreen={true}
-            loading="lazy"
-          ></iframe>
-              </div>
-            </div>
           </div>
         </div>
         <div className="relative aspect-square overflow-hidden rounded-lg">
@@ -49,7 +36,6 @@ export default function AboutPage() {
           />
         </div>
       </div>
-      
 
       <div className="mt-16">
         <h2 className="mb-8 text-3xl font-bold">Why Choose Us</h2>
@@ -80,16 +66,25 @@ export default function AboutPage() {
         <div className="grid gap-6 md:grid-cols-4">
           {[
             {
-              name: "Raju Acharya",
+              name: "John Doe",
               role: "CEO & Founder",
-              image: "https://scontent.fkep4-1.fna.fbcdn.net/v/t39.30808-6/439110900_1159933591682486_4507279207773840666_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=f727a1&_nc_ohc=c02J8PjczxAQ7kNvgHjZHwk&_nc_zt=23&_nc_ht=scontent.fkep4-1.fna&_nc_gid=Azz5_VSt9tarUTdmhH7nbEN&oh=00_AYAvuE4eHYKotgjlgLskf60MHhhlAQhacaVYtpPMPymaZA&oe=674A445C",
+              image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
             },
             {
-              name: "Kamal Acharya",
+              name: "Jane Smith",
               role: "Creative Director",
-              image: "../../public/kamal.jpg",
+              image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
             },
-            
+            {
+              name: "Mike Johnson",
+              role: "Head of Design",
+              image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+            },
+            {
+              name: "Sarah Williams",
+              role: "Customer Relations",
+              image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+            },
           ].map((member) => (
             <Card key={member.name} className="overflow-hidden">
               <div className="relative aspect-square">

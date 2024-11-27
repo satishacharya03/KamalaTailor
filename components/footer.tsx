@@ -14,7 +14,7 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">About Us</h3>
             <p className="text-sm text-muted-foreground">
-              Kamal Tailoritem is your destination for premium tailoring and accessories.
+              Modern Shop is your destination for premium fashion and accessories.
               We deliver quality products and exceptional service.
             </p>
           </div>
@@ -66,7 +66,7 @@ export function Footer() {
         <Separator className="my-8" />
         <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Kamal Tailoritems. All rights reserved.
+            © {new Date().getFullYear()} Modern Shop. All rights reserved.
           </p>
           <div className="flex space-x-4">
             <Button variant="ghost" size="icon">

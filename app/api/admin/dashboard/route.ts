@@ -28,7 +28,6 @@ export async function GET() {
       recentOrders,
     });
   } catch (error) {
-    console.error("Error fetching dashboard data:", error);
     return new NextResponse(
       error instanceof Error ? error.message : "Internal Server Error",
       { status: 500 }

@@ -1,5 +1,3 @@
-"use client";
-
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { Card } from "@/components/ui/card";
@@ -12,8 +10,6 @@ import {
   Settings,
   MessageCircle,
 } from "lucide-react";
-
-export const dynamic = "force-dynamic";
 
 const sidebarItems = [
   {

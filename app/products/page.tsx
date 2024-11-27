@@ -1,14 +1,11 @@
-"use client";
-
+import { Suspense } from "react";
 import { prisma } from "@/lib/prisma";
 import { ProductGrid } from "@/components/product-grid";
 import { ProductFilters } from "@/components/product-filters";
-import { useSearchParams } from "next/navigation";
+
+export const dynamic = "force-dynamic";
 
 export default async function ProductsPage() {
-  const searchParams = useSearchParams();
-  const query = searchParams?.get("query") || "";
-
   const products = await prisma.product.findMany({
     include: {
       category: true,
@@ -21,7 +18,9 @@ export default async function ProductsPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-4 gap-8">
         <div className="col-span-1">
-          <ProductFilters categories={categories} />
+          <Suspense fallback={<div>Loading filters...</div>}>
+            <ProductFilters categories={categories} />
+          </Suspense>
         </div>
         <div className="col-span-3">
           <ProductGrid products={products} />

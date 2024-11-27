@@ -2,8 +2,8 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AccountSettings } from "./account-settings";
 import { SecuritySettings } from "./security-settings";
+import { NotificationSettings } from "./notification-settings";
 
-export const dynamic = 'force-dynamic'
 export default function SettingsPage() {
   return (
     <div className="space-y-6">
@@ -35,7 +35,7 @@ export default function SettingsPage() {
 
         <TabsContent value="notifications">
           <Card className="p-6">
-            {/* <NotificationSettings /> */}
+            <NotificationSettings />
           </Card>
         </TabsContent>
       </Tabs>

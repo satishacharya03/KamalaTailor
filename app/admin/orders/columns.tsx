@@ -19,7 +19,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { OrderStatus } from "@prisma/client";
+import { Status } from "@prisma/client";
 import { format } from "date-fns";
 
 type OrderWithDetails = Order & {
@@ -39,8 +39,8 @@ export const OrderColumns: ColumnDef<OrderWithDetails>[] = [
   {
     accessorKey: "id",
     header: "Order ID",
-    cell: ({ row }) => {
-      return <span className="font-medium">#{(row.getValue("id") as string).slice(0, 8)}</span>;
+    cell: ({ row }: { row: { getValue: (key: string) => string } }) => {
+      return <span className="font-medium">#{row.getValue("id").slice(0, 8)}</span>;
     },
   },
   {
@@ -59,7 +59,7 @@ export const OrderColumns: ColumnDef<OrderWithDetails>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.getValue("status") as OrderStatus;
+      const status = row.getValue("status") as Status;
       return (
         <Badge className={statusColors[status]}>
           {status.charAt(0) + status.slice(1).toLowerCase()}

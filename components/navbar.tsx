@@ -15,17 +15,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { NavigationMenu } from "@/components/ui/navigation-menu";
 import { CartSheet } from "@/components/cart-sheet";
-import { User as NextAuthUser } from "next-auth";
-import { ThemeToggle } from "@/components/theme-toggle";
-
-// Extend the User type to include the role
-interface User extends NextAuthUser {
-  role: "ADMIN" | "USER";
-}
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { data: session } = useSession() as { data: { user: User } | null };
+  const { data: session } = useSession();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -33,7 +26,7 @@ export default function Navbar() {
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <span className="hidden font-bold sm:inline-block">
-              Kamal Tailoritems
+              MODERN SHOP
             </span>
           </Link>
           <NavigationMenu>
@@ -78,7 +71,7 @@ export default function Navbar() {
                   <DropdownMenuItem asChild>
                     <Link href="/account/orders">Orders</Link>
                   </DropdownMenuItem>
-                  {session?.user?.role === "ADMIN" && (
+                  {session.user.role === "ADMIN" && (
                     <>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem asChild>
@@ -89,7 +82,7 @@ export default function Navbar() {
                       </DropdownMenuItem>
                     </>
                   )}
-                  {session?.user?.role === "USER" && (
+                  {session.user.role === "USER" && (
                     <DropdownMenuItem asChild>
                       <Link href="/chat">
                         <MessageCircle className="mr-2 h-4 w-4" />
@@ -104,7 +97,6 @@ export default function Navbar() {
                 <Link href="/auth/login">Sign In</Link>
               </Button>
             )}
-            <ThemeToggle />
           </div>
         </div>
       </div>

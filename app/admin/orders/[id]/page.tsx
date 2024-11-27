@@ -10,9 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { OrderStatus } from "@prisma/client";
-
-export const dynamic = "force-dynamic";
+import { Status } from "@prisma/client";
 
 export default async function OrderDetailsPage({
   params,
@@ -42,7 +40,7 @@ export default async function OrderDetailsPage({
             <SelectValue placeholder="Select status" />
           </SelectTrigger>
           <SelectContent>
-            {Object.values(OrderStatus).map((status) => (
+            {Object.values(Status).map((status) => (
               <SelectItem key={status} value={status}>
                 {status.charAt(0) + status.slice(1).toLowerCase()}
               </SelectItem>

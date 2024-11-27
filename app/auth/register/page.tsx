@@ -16,9 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Toast } from "@/components/ui/toast";
+import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
 
 const registerSchema = z.object({
   name: z.string().min(2),
@@ -59,20 +58,20 @@ export default function RegisterPage() {
       });
 
       if (result?.error) {
-        Toast({
+        toast({
           variant: "destructive",
           title: "Error",
-          children: "Failed to sign in after registration",
+          description: "Failed to sign in after registration",
         });
       } else {
         router.push("/");
         router.refresh();
       }
     } catch (error) {
-      Toast({
+      toast({
         variant: "destructive",
         title: "Error",
-        children: "Registration failed",
+        description: "Registration failed",
       });
     } finally {
       setLoading(false);
@@ -133,17 +132,26 @@ export default function RegisterPage() {
             </Button>
           </form>
         </Form>
+
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
             <Separator />
-            <div className="text-center text-sm">
-              Already have an account?{" "}
-              <Link
-                href="/auth/login"
-                className="text-primary hover:underline"
-              >
-                Login
-              </Link>
-            </div>
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-background px-2 text-muted-foreground">
+              Or continue with
+            </span>
           </div>
         </div>
+
+        <Button
+          variant="outline"
+          className="w-full"
+          onClick={() => signIn("google", { callbackUrl: "/" })}
+        >
+          Continue with Google
+        </Button>
+      </div>
+    </div>
   );
 }
