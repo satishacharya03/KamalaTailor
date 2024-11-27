@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import Navbar from '@/components/navbar';
 import { Footer } from '@/components/footer';
 import './globals.css';
+import { notFound } from 'next/navigation';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,10 +32,12 @@ export default function RootLayout({
         >
           <div className="flex min-h-screen flex-col">
             <Navbar />
+            <SessionProvider>
             <main className="flex-1 bg-background">
-              {children}
-            </main>
-            <Footer />
+                {children}
+              </main>
+              </SessionProvider>
+              <Footer />
           </div>
           <Toaster />
         </ThemeProvider>
