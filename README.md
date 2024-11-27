@@ -52,8 +52,10 @@ A modern e-commerce platform built with Next.js 13+, featuring a customer-facing
 ```bash
 git clone [your-repository-url]
 cd kamalatailor
+```
 
-Create a .env file in the root directory and add:
+#Create a .env file in the root directory and add:
+```
 DATABASE_URL="your_postgresql_url"
 NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="your_nextauth_secret"
@@ -63,15 +65,18 @@ PUSHER_APP_ID="your_pusher_app_id"
 PUSHER_KEY="your_pusher_key"
 PUSHER_SECRET="your_pusher_secret"
 PUSHER_CLUSTER="your_pusher_cluster"
+```
 
 
-Run database migrationsStart the development server
+#Run database migrationsStart the development server
+```
 npx prisma generate
 npx prisma db push
 npm run dev
+```
 
-Project Structure
-kamalatailor/
+#Project Structure
+```kamalatailor/
 ├── app/                    # Next.js 13+ app directory
 │   ├── admin/             # Admin dashboard pages
 │   ├── api/               # API routes
@@ -82,48 +87,10 @@ kamalatailor/
 ├── lib/                   # Utility functions and configurations
 ├── prisma/               # Database schema and migrations
 └── public/               # Static assets
-
-Deployment
-npm run build
-
-
-The application is optimized for production with:
-Static file serving
-API route handling
-Database connections
-Authentication flows
-Features Detail
-Authentication
-Email/Password login
-Google OAuth integration
-JWT-based sessions
-Role-based access control
-Product Management
-Product categories
-Image uploads
-Inventory tracking
-Pricing management
-Order System
-Shopping cart
-Checkout process
-Order history
-Status tracking
-Chat System
-Real-time customer support
-Admin-customer messaging
-Message notifications
-Chat history
-Security
-Password hashing with bcrypt
-CSRF protection
-API route protection
-Input validation
-Role-based access control
-Contributing
-Fork the repository
-Create your feature branch (git checkout -b feature/AmazingFeature)
-Commit your changes (git commit -m 'Add some AmazingFeature')
-Push to the branch (git push origin feature/AmazingFeature)
-Open a Pull Request
-Support
+```
+#Deployment
+```
+ npm run build
+```
+#Support
 For support, email [contact@acharyasatish.com.np].
